@@ -1,0 +1,16 @@
+php artisan migrate:rollback  - undo migration to edit ng hindi nag bubura yung laman ng db
+
+
+
+
+striptags is used to remove malicious html tags 
+
+
+php artisan make:model <nameModel> dito yung Model yung ginagamit pang create ng commands to insert or any sa db
+
+
+php 8.1.10
+
+
+
+https://www.youtube.com/watch?v=iOM2LoOd2KQ&t=285s  to configure 2 php version in 1 xampp

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
 
 /*
@@ -20,12 +21,16 @@ use App\Http\Controllers\UserController;
 # test is the same name of controller method/function and its case sensitive
 // Route::get('/test/{name}',[ExampleController::class,'test']);
 
-
+// User Controller
 Route::get('/',[UserController::class,'homepage']);
-Route::get('/singlepost',[UserController::class,'singePost']);
-
-
 Route::post('/register',[UserController::class,'register']);
 Route::post('/login',[UserController::class,'login']);
 Route::post('/logout',[UserController::class,'logout']);
+
+Route::get('/singlepost',[UserController::class,'singePost']);
+
+
+// Post Controller
+Route::get('/createpost',[PostController::class,'createPost']);
+Route::post('/createpost',[PostController::class,'savePost']);
 
