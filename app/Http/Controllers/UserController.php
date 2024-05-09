@@ -9,6 +9,17 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
+
+
+    public function showProfile(User $user)  // User $user is called type hinting
+    {
+        // same dapat si $user varibalename sa route parameter'
+        return view('user-profile',['user' => $user, 'posts' => $user->posts()->latest()->get()]);
+    }
+    
+
+
+
     public function homepage()
     {
         return view('homepage');
