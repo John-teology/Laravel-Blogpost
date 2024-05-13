@@ -18,7 +18,7 @@ class CreatePostsTable extends Migration
             $table->timestamps();
             $table->string('title');
             $table->text('content');
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');// constrained is a method that check dapat yung id is nasa users table
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');// constrained is a method that check dapat yung id is nasa `users` table
             // user_id is just the name of column
         });
         //
