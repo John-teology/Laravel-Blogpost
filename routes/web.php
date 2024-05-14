@@ -21,6 +21,10 @@ use App\Http\Controllers\UserController;
 # test is the same name of controller method/function and its case sensitive
 // Route::get('/test/{name}',[ExampleController::class,'test']);
 
+Route::get('/admin-only',function(){
+    return 'You are an admin';
+})->middleware('can:visitAdminpages');
+
 // User Controller
 Route::get('/',[UserController::class,'homepage']);
 Route::post('/register',[UserController::class,'register'])->middleware('guest');

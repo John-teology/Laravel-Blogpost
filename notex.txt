@@ -18,3 +18,12 @@ https://www.youtube.com/watch?v=iOM2LoOd2KQ&t=285s  to configure 2 php version i
 
 
 php artisan make:model <name>  -m   to create the migrations ng sabay
+
+
+php artisan make:migration add_superuser_to_users_table --table=users  
+        # this means that its referencing to the users table/ if mag aadd lang ng bagong col sa users or other table
+
+
+
+Gate:
+    acts like policies it define in Providers/AuthServiceProvider  para rin policy per si policy is use in CRUD operations only
