@@ -10,7 +10,7 @@ php artisan make:model <nameModel> dito yung Model yung ginagamit pang create ng
 
 
 php 8.1.10
-
+set PATH=C:\xampp\php8;%PATH%
 
 
 https://www.youtube.com/watch?v=iOM2LoOd2KQ&t=285s  to configure 2 php version in 1 xampp
@@ -27,3 +27,13 @@ php artisan make:migration add_superuser_to_users_table --table=users
 
 Gate:
     acts like policies it define in Providers/AuthServiceProvider  para rin policy per si policy is use in CRUD operations only
+
+Policies:
+        restriction for CRUD only 
+
+
+"php artisan storage:link" this create storage in main public folder, dito ma sasave din uli yung image to generate link thats all it purpose pero nasasave parin talaga sa app/public lahat
+
+pag nag delete ka sa Main public/ directory madedelete din sa storage/app/public
+
+parang duplicate lang sila 

@@ -6,6 +6,7 @@ use App\Models\Post;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -23,6 +24,9 @@ class User extends Authenticatable
         'email',
         'password',
     ];
+
+    
+
 
     /**
      * The attributes that should be hidden for serialization.
@@ -48,6 +52,10 @@ class User extends Authenticatable
         return $this->hasMany(Post::class,'user_id');
         // dito nag query na sa User model kung saan ang user_id ay equal sa id ng user
         //  rereturn niya yung buong user object
+    }
+
+    public function getavatar(){
+        return $this->avatar ? '/storage/avatars/'.$this->avatar : '/fallback-avatar.jpg';
     }
 
 

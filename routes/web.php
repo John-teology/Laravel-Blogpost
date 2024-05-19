@@ -31,6 +31,8 @@ Route::post('/register',[UserController::class,'register'])->middleware('guest')
 Route::post('/login',[UserController::class,'login'])->middleware('guest');
 Route::post('/logout',[UserController::class,'logout'])->middleware('auth2');
 Route::get('/profile/{user:username}',[UserController::class,'showProfile']); // {user} should be automatically ID pero if gusto mo customize pwede rin {user:username} or {user:age} etc
+Route::get('/profile/{user:username}/edit',[UserController::class,'editProfile'])->middleware('auth2');
+Route::post('/profile/{user:username}/edit',[UserController::class,'saveEditProfile'])->middleware('auth2');;
 
 // Route::get('/singlepost',[UserController::class,'singePost']);
 

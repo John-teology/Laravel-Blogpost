@@ -6,6 +6,9 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
+use Intervention\Image\ImageManager;
+use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Drivers\Gd\Driver;
 
 class UserController extends Controller
 {
@@ -68,6 +71,47 @@ class UserController extends Controller
     {
         auth()->logout();
         return redirect('/')->with('success','You are successfully logged out');
+    }
+
+
+    public function editProfile()
+    {
+        return view('edit-profile');
+    }
+
+    public function saveEditProfile(Request $request)
+    {
+
+        $request->validate([
+            'avatar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:3000'
+        ]);
+        // avatar is name in html form
+        // $request->file('avatar')->store('public/avatars');
+        $user = auth()->user();
+        // rezise image| modify the image
+        $manager = new ImageManager(new Driver());
+        $image = $manager->read($request->file('avatar'));
+        $imageData = $image->cover(100,100)->toJpeg();
+        // rezise image| modify the image
+
+        // saving the image to the storage
+        $filename = $user->username.uniqid();
+        Storage::put('public/avatars/'.$filename.'.jpg',$imageData);
+
+        $old_avatar = $user->avatar;
+
+        $user->avatar = $filename.'.jpg';
+        $user->save();
+
+
+        Storage::delete('public/avatars/'.$old_avatar);
+
+        return redirect('/profile/' . $user->username)->with('success','Successfully change avatar');
+        // return back()->with('success','Successfully change avatar');
+        // back is parang balik sa previous page after the post request
+
+
+
     }
 }
 

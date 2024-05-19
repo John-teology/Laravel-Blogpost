@@ -15,7 +15,7 @@
       </div>
 
       <p class="text-muted small mb-4">
-        <a href="/profile/{{$post->user->username}}"><img class="avatar-tiny" src="https://gravatar.com/avatar/f64fc44c03a8a7eb1d52502950879659?s=128" /></a>
+        <a href="/profile/{{$post->user->username}}"><img class="avatar-tiny" src="{{$post->user->getavatar()}}" /></a>
         Posted by <a href="#">{{$post->user->username}}</a> on {{$post->created_at->format('n/j/Y')}}
       {{-- remember `user` is from the Post.php under model directory --}}
       </p>
