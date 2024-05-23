@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\FollowController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,6 +36,11 @@ Route::get('/profile/{user:username}/edit',[UserController::class,'editProfile']
 Route::post('/profile/{user:username}/edit',[UserController::class,'saveEditProfile'])->middleware('auth2');;
 
 // Route::get('/singlepost',[UserController::class,'singePost']);
+
+// Follow Related Routes
+Route::post('/follow/{user:username}',[FollowController::class,'followUser'])->middleware('auth2');
+Route::post('/unfollow/{user:username}',[FollowController::class,'unFollowUser'])->middleware('auth2');
+
 
 
 // Post Controller

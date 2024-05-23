@@ -2,6 +2,7 @@
     <div class="container py-md-5 container--narrow">
       <div class="d-flex justify-content-between">
         <h2>{{$post->title}}</h2>
+          {{-- @can('update', [$post,'test']) ito ay pag 2 or more parameters --}}
           @can('update', $post)
           <span class="pt-2">
             <a href="/edit/{{$post->id}}" class="text-primary mr-2" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fas fa-edit"></i></a>

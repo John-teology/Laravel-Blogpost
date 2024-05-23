@@ -30,7 +30,7 @@ Gate:
 
 Policies:
         restriction for CRUD only 
-
+        dont forget to register it
 
 "php artisan storage:link" this create storage in main public folder, dito ma sasave din uli yung image to generate link thats all it purpose pero nasasave parin talaga sa app/public lahat
 

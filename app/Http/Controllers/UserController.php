@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Follows;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
@@ -16,8 +17,11 @@ class UserController extends Controller
 
     public function showProfile(User $user)  // User $user is called type hinting
     {
+        $current_follow = 0; // or false 
+        $current_follow = Follows::where([['user_id', '=', auth()->user()->id],['followed_user_id', '=', $user->id]])->count();
+
         // same dapat si $user varibalename sa route parameter'
-        return view('user-profile',['user' => $user, 'posts' => $user->posts()->latest()->get()]);
+        return view('user-profile',['user' => $user, 'posts' => $user->posts()->latest()->get(),'user_to_be_follow'=> $user,'current_follow' => $current_follow]);
     }
     
 
@@ -74,9 +78,14 @@ class UserController extends Controller
     }
 
 
-    public function editProfile()
+    public function editProfile(User $user)
     {
-        return view('edit-profile');
+        if(auth()->user()->id == $user->id)
+        {
+            return view('edit-profile',['user' => $user]);
+        }
+
+        return back()->with('error','You are not authorized to edit this profile');
     }
 
     public function saveEditProfile(Request $request)

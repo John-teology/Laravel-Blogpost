@@ -7,7 +7,7 @@ use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 
-// php aritan make:policy PostPolicy --model=Post
+// php artisan make:policy PostPolicy --model=Post
 
 // you need to register this policy in AuthServiceProvider.php under Providers directory    
 class PostPolicy
@@ -55,6 +55,7 @@ class PostPolicy
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Auth\Access\Response|bool
      */
+    // public function update(User $user, Post $post, $test)
     public function update(User $user, Post $post)
     {
         if($user->is_superuser)
