@@ -34,6 +34,10 @@ Route::post('/logout',[UserController::class,'logout'])->middleware('auth2');
 Route::get('/profile/{user:username}',[UserController::class,'showProfile']); // {user} should be automatically ID pero if gusto mo customize pwede rin {user:username} or {user:age} etc
 Route::get('/profile/{user:username}/edit',[UserController::class,'editProfile'])->middleware('auth2');
 Route::post('/profile/{user:username}/edit',[UserController::class,'saveEditProfile'])->middleware('auth2');;
+Route::get('/profile/{user:username}/followers',[UserController::class,'showProfileFollwers'])->middleware('auth2');;
+Route::get('/profile/{user:username}/following',[UserController::class,'showProfileFollowing'])->middleware('auth2');;
+
+
 
 // Route::get('/singlepost',[UserController::class,'singePost']);
 

@@ -13,4 +13,13 @@ class Follows extends Model
         'user_id',
         'followed_user_id',
     ];
+
+
+    public function getfolloweruser(){
+        return $this->belongsTo(User::class,'user_id');
+    }
+
+    public function getfollowinguser(){
+        return $this->belongsTo(User::class,'followed_user_id');
+    }
 }

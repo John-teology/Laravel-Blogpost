@@ -7,6 +7,7 @@ use App\Models\Follows;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\View;
 use Intervention\Image\ImageManager;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Drivers\Gd\Driver;
@@ -14,16 +15,33 @@ use Intervention\Image\Drivers\Gd\Driver;
 class UserController extends Controller
 {
 
-
-    public function showProfile(User $user)  // User $user is called type hinting
-    {
+    private function shareData($user){ // private means di pwede gamiting sa controller
         $current_follow = 0; // or false 
         $current_follow = Follows::where([['user_id', '=', auth()->user()->id],['followed_user_id', '=', $user->id]])->count();
 
+        View::share("sharedData",['user' => $user, 'user_to_be_follow'=> $user,'current_follow' => $current_follow,'posts' => $user->posts()->latest()->get()]);
+    }
+
+    public function showProfile(User $user)  // User $user is called type hinting
+    {
+        // $current_follow = 0; // or false 
+        // $current_follow = Follows::where([['user_id', '=', auth()->user()->id],['followed_user_id', '=', $user->id]])->count();
+        $this->shareData($user);
         // same dapat si $user varibalename sa route parameter'
-        return view('user-profile',['user' => $user, 'posts' => $user->posts()->latest()->get(),'user_to_be_follow'=> $user,'current_follow' => $current_follow]);
+        return view('user-profile',['posts' => $user->posts()->latest()->get()]);
     }
     
+    public function showProfileFollwers(User $user)  // User $user is called type hinting
+    {
+        $this->shareData($user);
+        return view('user-followers',['followers' => $user->followers()->get()]);
+    }
+
+    public function showProfileFollowing(User $user)  // User $user is called type hinting
+    {
+        $this->shareData($user);
+        return view('user-following',['posts' => $user->posts()->latest()->get()]);
+    }
 
 
 
