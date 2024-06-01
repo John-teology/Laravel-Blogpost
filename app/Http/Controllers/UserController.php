@@ -19,7 +19,7 @@ class UserController extends Controller
         $current_follow = 0; // or false 
         $current_follow = Follows::where([['user_id', '=', auth()->user()->id],['followed_user_id', '=', $user->id]])->count();
 
-        View::share("sharedData",['user' => $user, 'user_to_be_follow'=> $user,'current_follow' => $current_follow,'posts' => $user->posts()->latest()->get()]);
+        View::share("sharedData",['user' => $user, 'user_to_be_follow'=> $user,'current_follow' => $current_follow,'posts' => $user->posts()->latest()->get(),'followers_count' => $user->followers()->get()->count(),'followings_count' => $user->following()->latest()->get()->count()]);
     }
 
     public function showProfile(User $user)  // User $user is called type hinting
@@ -40,7 +40,7 @@ class UserController extends Controller
     public function showProfileFollowing(User $user)  // User $user is called type hinting
     {
         $this->shareData($user);
-        return view('user-following',['posts' => $user->posts()->latest()->get()]);
+        return view('user-following',['followings' => $user->following()->latest()->get()]);
     }
 
 

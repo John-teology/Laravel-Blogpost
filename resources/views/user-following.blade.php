@@ -2,11 +2,11 @@
 
   
     <div class="list-group">
-        @forEach($posts as $post)
-            <a href="/post/{{$post->id}}" class="list-group-item list-group-item-action">
-                <img class="avatar-tiny" src="{{$post->user->getavatar()}}" />
-                <strong>{{$post->title}}</strong> on {{$post->created_at->format('n/j/Y')}}
-            </a>
+        @forEach($followings as $following)
+        <a href="/profile/{{$following->getfollowinguser->username}}" class="list-group-item list-group-item-action">
+            <img class="avatar-tiny" src="{{$following->getfollowinguser->getavatar()}}" />
+            {{$following->getfollowinguser->username}}
+        </a>
         @endforEach
     </div>
   
