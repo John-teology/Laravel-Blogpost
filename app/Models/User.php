@@ -47,6 +47,14 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function feedPosts(){
+
+        return $this->hasManyThrough(Post::class,Follows::class,"user_id","user_id","id","followed_user_id");
+        // get post of following
+        // 1st and 2nd args is yung 2 table
+        // 3rd and 4th is yung dalawang ID na nag coconnect sa kanila
+        // 5th and 6th is yung current user id at yung user id ng followed user
+    }
 
     public function posts(){
         return $this->hasMany(Post::class,'user_id');

@@ -47,6 +47,9 @@ class UserController extends Controller
 
     public function homepage()
     {
+        if(auth()->user()){
+            return view('homepage',['posts' => auth()->user()->feedPosts()->latest()->get()]);
+        }
         return view('homepage');
     }
 
