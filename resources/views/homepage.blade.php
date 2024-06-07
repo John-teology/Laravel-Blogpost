@@ -1,4 +1,4 @@
-<x-layout>
+<x-layout title="Your Feed">
     <div class="container py-md-5">
       <div class="row align-items-center">
         @auth
@@ -14,14 +14,14 @@
                 <h2 class="text-center mb-4">The Latest From Those You Follow</h2>
                 <div class="list-group">
                   @foreach($posts as $post)
-                  <a href="/post/{{$post->id}}" class="list-group-item list-group-item-action">
-                    <img class="avatar-tiny" src="{{$post->user->getavatar()}}" />
-                    <strong>{{$post->title}}</strong>
-                    <span class="text-muted small">by {{$post->user->username }} on {{$post->created_at->format('n/j/Y')}}</span>
-                  </a>
+                    <x-posts :post="$post" />
                   @endforEach
                 </div>
+                  <div class="mt-4" style="float: right;">
+                  {{$posts->links()}}
+                  </div>
               </div>
+
           @endif
 
         @else

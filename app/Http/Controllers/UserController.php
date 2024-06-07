@@ -28,7 +28,7 @@ class UserController extends Controller
         // $current_follow = Follows::where([['user_id', '=', auth()->user()->id],['followed_user_id', '=', $user->id]])->count();
         $this->shareData($user);
         // same dapat si $user varibalename sa route parameter'
-        return view('user-profile',['posts' => $user->posts()->latest()->get()]);
+        return view('user-profile',['posts' => $user->posts()->latest()->paginate(5)]);
     }
     
     public function showProfileFollwers(User $user)  // User $user is called type hinting
@@ -48,7 +48,7 @@ class UserController extends Controller
     public function homepage()
     {
         if(auth()->user()){
-            return view('homepage',['posts' => auth()->user()->feedPosts()->latest()->get()]);
+            return view('homepage',['posts' => auth()->user()->feedPosts()->latest()->paginate(5)]);
         }
         return view('homepage');
     }

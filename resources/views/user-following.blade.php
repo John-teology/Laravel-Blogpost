@@ -1,4 +1,4 @@
-<x-profile :sharedData="$sharedData">
+<x-profile :sharedData="$sharedData" title="{{auth()->user()->username}}'s Following" >
 
   
     <div class="list-group">
