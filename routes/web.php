@@ -54,7 +54,8 @@ Route::post('/createpost',[PostController::class,'savePost'])->middleware('auth2
 Route::get('/post/{post}',[PostController::class,'getPost']);
 Route::delete('/post/{post}',[PostController::class,'delete'])->middleware('can:delete,post'); // so pwede rin gamitin yung policy sa route as middleware
 Route::get('/edit/{post}',[PostController::class,'updateForm'])->middleware('can:update,post');
-Route::put('/edit/{post}',[PostController::class,'update'])->middleware('can:update,post');;
+Route::put('/edit/{post}',[PostController::class,'update'])->middleware('can:update,post');
+Route::get('/search/{term}',[PostController::class,'search']);
 
 
 // Route::get('/',[UserController::class,'homepage'])->name('login'); // name is used to give a name to the route

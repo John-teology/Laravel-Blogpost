@@ -8,7 +8,16 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
-    //
+    
+    public function search($term){
+        $searchResults = Post::search($term)->get();
+        // $searchResults->load('user:id,username,avatar');  so pwede to if gusto mo lang specify 
+        $searchResults->load('user'); // so pag nag search ka ng post may kasama na yung user na nag post
+        // so si "user" is yung dinefine sa model ng post na may relation sa user
+        
+        return $searchResults;
+    }
+
     public function createPost(Request $request){
         return view('create-post');
      
