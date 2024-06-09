@@ -37,3 +37,12 @@ Policies:
 pag nag delete ka sa Main public/ directory madedelete din sa storage/app/public
 
 parang duplicate lang sila 
+
+
+
+=========================
+
+
+npm run dev  "runs front end styling and auto refresh"
+
+npm run build "automatically create build folder that bundles all css,js,etc. files in the public folder under build directory"

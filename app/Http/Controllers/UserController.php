@@ -9,6 +9,7 @@ use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use Intervention\Image\ImageManager;
+use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Drivers\Gd\Driver;
 
@@ -117,24 +118,22 @@ class UserController extends Controller
         ]);
         // avatar is name in html form
         // $request->file('avatar')->store('public/avatars');
+        
         $user = auth()->user();
-        // rezise image| modify the image
-        $manager = new ImageManager(new Driver());
-        $image = $manager->read($request->file('avatar'));
-        $imageData = $image->cover(100,100)->toJpeg();
-        // rezise image| modify the image
 
-        // saving the image to the storage
-        $filename = $user->username.uniqid();
-        Storage::put('public/avatars/'.$filename.'.jpg',$imageData);
+        $filename = $user->id . '-' . uniqid() . '.jpg';
 
-        $old_avatar = $user->avatar;
+        $imgData = Image::make($request->file('avatar'))->fit(120)->encode('jpg');
+        Storage::put('public/avatars/' . $filename, $imgData);
 
-        $user->avatar = $filename.'.jpg';
+        $oldAvatar = $user->avatar;
+
+        $user->avatar = $filename;
         $user->save();
 
-
-        Storage::delete('public/avatars/'.$old_avatar);
+        if ($oldAvatar != "/fallback-avatar.jpg") {
+            Storage::delete(str_replace("/storage/", "public/", $oldAvatar));
+        }
 
         return redirect('/profile/' . $user->username)->with('success','Successfully change avatar');
         // return back()->with('success','Successfully change avatar');

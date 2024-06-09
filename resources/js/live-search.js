@@ -56,7 +56,6 @@ export default class Search {
 
   async sendRequest() {
     const results = await axios(`/search/${this.inputField.value}`)
-    console.log(results.data)
     this.renderResultsHTML(results.data)
   }
 
