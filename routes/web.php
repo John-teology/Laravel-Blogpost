@@ -1,5 +1,7 @@
 <?php
 
+use App\Events\ChatMessage;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
@@ -66,4 +68,19 @@ Route::get('/search/{term}',[PostController::class,'search']);
 
 // midelware('guest') is used to check if the user is not authenticated
 
-// you can modify the redirect url of mideleware in app/Http/Middleware/... so on mamili ka nalang anong middleware ang gagamitin mo  
+// you can modify the redirect url of mideleware in app/Http/Middleware/... so on mamili ka nalang anong middleware ang gagamitin mo  // Chat route
+
+//
+Route::post('/send-chat-message', function (Request $request) {
+    $formFields = $request->validate([
+      'textvalue' => 'required'
+    ]);
+  
+    if (!trim(strip_tags($formFields['textvalue']))) {
+      return response()->noContent();
+    }
+  
+    broadcast(new ChatMessage(['username' =>auth()->user()->username, 'textvalue' => strip_tags($request->textvalue), 'avatar' => auth()->user()->getavatar()]))->toOthers();
+    return response()->noContent();
+  
+  })->middleware('auth2');

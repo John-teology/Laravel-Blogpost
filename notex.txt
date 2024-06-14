@@ -56,3 +56,4 @@ php artisan event:generate   pag na run to mag gegenerate ito ng event and liste
 an event can have multiple listeners
 
 
+we face a big problem regarding SSL certificate problem: unable to get local issuer certificate in pusher but to fix it go to the broadcasting.php and change 'useTLS' => true, to false
