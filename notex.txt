@@ -46,3 +46,13 @@ parang duplicate lang sila
 npm run dev  "runs front end styling and auto refresh"
 
 npm run build "automatically create build folder that bundles all css,js,etc. files in the public folder under build directory"
+
+==================================================
+
+event listeners
+
+php artisan event:generate   pag na run to mag gegenerate ito ng event and listeners sa Event and Listeners directory
+
+an event can have multiple listeners
+
+

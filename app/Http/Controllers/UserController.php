@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Follows;
 use Illuminate\Http\Request;
+use App\Events\OurExampleEvent;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
@@ -79,6 +80,7 @@ class UserController extends Controller
 
     public function login(Request $request)
     {
+        event(new OurExampleEvent());
         $data = $request->validate([
             'loginusername' => 'required',
             'loginpassword' => 'required'
