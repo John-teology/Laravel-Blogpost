@@ -40,6 +40,14 @@ Route::get('/profile/{user:username}/followers',[UserController::class,'showProf
 Route::get('/profile/{user:username}/following',[UserController::class,'showProfileFollowing'])->middleware('auth2');;
 
 
+// example of using middleware as group
+Route::middleware('cache.headers:public;max_age=30;etag')->group(function () {
+    Route::get('/profile/{user:username}/raw',[UserController::class,'showProfileRaw'])->middleware('auth2');
+    Route::get('/profile/{user:username}/followers/raw',[UserController::class,'showProfileFollwersRaw'])->middleware('auth2');
+    Route::get('/profile/{user:username}/following/raw',[UserController::class,'showProfileFollowingRaw'])->middleware('auth2');
+});
+
+
 
 // Route::get('/singlepost',[UserController::class,'singePost']);
 

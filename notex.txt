@@ -57,3 +57,8 @@ an event can have multiple listeners
 
 
 we face a big problem regarding SSL certificate problem: unable to get local issuer certificate in pusher but to fix it go to the broadcasting.php and change 'useTLS' => true, to false
+
+=====================================================
+SPA single page
+
+@include('blade-template')  to use other template in other template parang extends sa django
