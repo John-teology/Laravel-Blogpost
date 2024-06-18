@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Mail\NewPostEmail;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class PostController extends Controller
 {
@@ -45,11 +47,15 @@ class PostController extends Controller
             // 'title' => 'required|max:255',
             'body' => 'required'
         ]);
+
+
         $incomingFields['title'] = strip_tags($data['title']); // striptags is used to remove html tags
         $incomingFields['content'] = strip_tags($data['body']);
         $incomingFields['user_id'] = auth()->user()->id;
 
         $newPost = Post::create($incomingFields);
+        Mail::to('teologo.wilhelm@gmail.com')->send(new NewPostEmail(['name' => auth()->user()->username, 'content' => $newPost->content, 'title' => $newPost->title, 'id' => $newPost->id]));
+
         return redirect("/post/{$newPost->id}")->with('success','Post created successfully');
         // pag mag paparse ng string ng variable sa loob ng string use double quotes
     }

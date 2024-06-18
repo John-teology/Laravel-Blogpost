@@ -74,7 +74,7 @@ class UserController extends Controller
     }
 
     public function singePost()
-    {
+    {   
         return view('single-post');
     }
 

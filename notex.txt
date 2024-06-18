@@ -2,7 +2,21 @@ php artisan migrate:rollback  - undo migration to edit ng hindi nag bubura yung 
 
 
 
+=================================================================================================
+if ever may change ka sa previous migration na gusto mo iupdate pero ayaw mo mwala yung data, create new migration then migrate
 
+php artisan make:migration change_genre_type_in_your_table
+
+
+  public function up()
+    {
+        Schema::table('your_table_name', function (Blueprint $table) {
+            $table->string('genre')->change();
+        });
+    }
+
+
+=================================================================================================
 striptags is used to remove malicious html tags 
 
 
@@ -40,14 +54,14 @@ parang duplicate lang sila
 
 
 
-=========================
+=====================================================
 
 
 npm run dev  "runs front end styling and auto refresh"
 
 npm run build "automatically create build folder that bundles all css,js,etc. files in the public folder under build directory"
 
-==================================================
+=====================================================
 
 event listeners
 
@@ -62,3 +76,11 @@ we face a big problem regarding SSL certificate problem: unable to get local iss
 SPA single page
 
 @include('blade-template')  to use other template in other template parang extends sa django
+
+
+=====================================================
+EMAIL
+
+
+php artisan make:mail "NameofMail"
+

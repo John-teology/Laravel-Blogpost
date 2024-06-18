@@ -25,7 +25,7 @@ class Post extends Model
     }
 
     public function user(){
-        // parang eto yung nag ccreate ng object na user per post
+        // parang eto yung nag ccreate ng object na user per post   
         return $this->belongsTo(User::class,'user_id');
         // dito nag query na sa User model kung saan ang user_id ay equal sa id ng user
         //  rereturn niya yung buong user object
