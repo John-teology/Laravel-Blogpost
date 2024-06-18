@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Jobs\Emailer;
 use App\Mail\NewPostEmail;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
 
 class PostController extends Controller
 {
@@ -54,7 +54,8 @@ class PostController extends Controller
         $incomingFields['user_id'] = auth()->user()->id;
 
         $newPost = Post::create($incomingFields);
-        Mail::to('teologo.wilhelm@gmail.com')->send(new NewPostEmail(['name' => auth()->user()->username, 'content' => $newPost->content, 'title' => $newPost->title, 'id' => $newPost->id]));
+
+        dispatch(new Emailer(['to' => 'teologo.wilhelm@gmail.com', 'name' => auth()->user()->username, 'content' => $newPost->content, 'title' => $newPost->title, 'id' => $newPost->id]));
 
         return redirect("/post/{$newPost->id}")->with('success','Post created successfully');
         // pag mag paparse ng string ng variable sa loob ng string use double quotes

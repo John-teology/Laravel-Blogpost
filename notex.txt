@@ -1,7 +1,11 @@
 php artisan migrate:rollback  - undo migration to edit ng hindi nag bubura yung laman ng db
 
 
+php artisan make:controller UserController
 
+php artisan make:model YourModelName
+
+php artisan make:migration create_users_table
 =================================================================================================
 if ever may change ka sa previous migration na gusto mo iupdate pero ayaw mo mwala yung data, create new migration then migrate
 
@@ -83,4 +87,24 @@ EMAIL
 
 
 php artisan make:mail "NameofMail"
+
+=====================================================
+Queue
+
+php artisan make:job "name"
+
+change in .env
+
+QUEUE_CONNECTION=sync to QUEUE_CONNECTION=database
+
+then type
+
+php artisan queue:table
+
+then migrate
+
+php artisan queue:work   // this run all the jobs in the database
+
+
+
 
