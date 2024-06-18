@@ -104,7 +104,12 @@ php artisan queue:table
 then migrate
 
 php artisan queue:work   // this run all the jobs in the database
+=====================================================
+Schedule Task in Laravel
 
 
+you can set Schedule in App/Kernel
+
+php artisan schedule:work
 
 
