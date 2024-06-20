@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Post;
 use App\Models\User;
 use App\Models\Follows;
 use Illuminate\Http\Request;
@@ -10,6 +11,7 @@ use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use Intervention\Image\ImageManager;
+use Illuminate\Support\Facades\Cache;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Drivers\Gd\Driver;
@@ -70,7 +72,20 @@ class UserController extends Controller
         if(auth()->user()){
             return view('homepage',['posts' => auth()->user()->feedPosts()->latest()->paginate(5)]);
         }
-        return view('homepage');
+        // if(Cache::has('totalPost')){
+        //     $totalPost = Cache::get('totalPost');
+        // }else{
+        //     $totalPost = Post::count();
+        //     Cache::put('totalPost', $totalPost, 20);
+        // }  
+
+        // same as nung nasa tass
+        $totalPost = Cache::remember('totalPost', 20, function () {
+            // this will remember totalPost for 20 sec else create niya yun sa cache
+            return Post::count();
+        });
+
+        return view('homepage', ['totalPost' => $totalPost]);
     }
 
     public function singePost()
